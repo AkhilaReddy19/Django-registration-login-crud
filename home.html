@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+</head>
+<body>
+    <form id="editform" method="POST" class="post-form" action="/edit/{{ details.id }}">
+        {% csrf_token %}
+            <h3>Welcome to Home Page {{ details.first_name }}...</h3>
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label"></label>
+                <div class="col-sm-3">
+                    <button type="submit" class="btn btn-primary">Edit Profile</button>
+                </div>
+                <div class="col-sm-2">
+                   <a class="btn btn-primary" href="/view_profile/{{ details.id }}"><span class="glyphicon glyphicon-pencil" >View Profile</span></a>
+                </div>
+                <div class="col-sm-4">
+                    <a class="btn btn-primary" href="/success/"><span class="glyphicon glyphicon-pencil">Logout</span></a>
+                </div>
+            </div>
+    </form>
+</body>
+</html>

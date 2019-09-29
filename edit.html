@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+</head>
+<body>
+
+    <form id="updateform" method="POST" class="post-form" action="/update/{{ details.id }}" >
+        {% csrf_token %}
+
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="container">
+                <div class="col-sm-4 form-group row">
+                    <h3>Update Your Profile</h3>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="first_name">First Name: </label>
+                    <input id="first_name" type="text" name="first_name" maxlength="100" value="{{details.first_name}}">
+                    <span class="error">This field is required</span>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="last_name">Last Name: </label>
+                    <input id="last_name" type="text" name="last_name" maxlength="100" value="{{details.last_name}}">
+                    <span class="error">This field is required</span>
+                </div>
+
+                <div class="form-group row">
+                      <label class="col-sm-2 col-form-label" for="city">City:</label>
+                      <select id="city" name="city">
+                        <option value="" hidden>-Select an option-</option>
+                        {% for city in cities %}
+                            {% if city.city1 == details.city %}
+                                <option value="{{ city.city1 }}" selected>{{ city.city1 }}</option>
+                            {% endif %}
+                            <option value="{{ city.city1 }}">{{ city.city1 }}</option>
+                        {% endfor %}
+                  </select>
+                      <span class="error">This field is required</span>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label"></label>
+                    <div class="col-sm-4">
+                        <button id="submit" type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </div>
+        </div>
+    </form>
+
+    <style>
+        .error{
+            display: none;
+            margin-left: 10px;
+        }
+        .error_show{
+            color: red;
+            margin-left: 10px;
+        }
+        input.invalid, textarea.invalid{
+            border: 2px solid red;
+        }
+
+        input.valid, textarea.valid{
+            border: 2px solid green;
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+    <script>
+        $(document).ready(function () {
+
+            $('#first_name').on('input', function () {
+                var input = $(this);
+                var is_name = input.val();
+                if (is_name) {
+                    input.removeClass("invalid").addClass("valid");
+                }
+                else {
+                    input.removeClass("valid").addClass("invalid");
+                }
+            });
+
+            $('#last_name').on('input', function () {
+                var input = $(this);
+                var is_name = input.val();
+                if (is_name) {
+                    input.removeClass("invalid").addClass("valid");
+                }
+                else {
+                    input.removeClass("valid").addClass("invalid");
+                }
+            });
+
+            $('#city').on('input', function () {
+                var input = $(this);
+                var is_name = input.val();
+                if (is_name) {
+                    input.removeClass("invalid").addClass("valid");
+                }
+                else {
+                    input.removeClass("valid").addClass("invalid");
+                }
+            });
+
+            $("#submit").on('click', function (event) {
+                var form_data = $("#updateform").serializeArray();
+                var error_free = true;
+                for (var input in form_data) {
+                    if(input!=0) {
+                        var element = $("#" + form_data[input]['name']);
+                        var valid = element.hasClass("valid");
+                        var error_element = $("span", element.parent());
+                        if (!valid) {
+                            alert(input)
+                            error_element.removeClass("error").addClass("error_show");
+                            error_free = false;
+                        }
+                        else {
+                            error_element.removeClass("error_show").addClass("error");
+                        }
+                    }
+                }
+                if (!error_free) {
+                    event.preventDefault();
+                }
+                else {
+                    alert('No errors: Form will be submitted');
+                }
+            });
+        });
+
+    </script>
+
+</body>
+</html>
