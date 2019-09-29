@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+</head>
+<body>
+
+    <form id="displayform" method="POST" class="post-form" >
+        {% csrf_token %}
+
+        <div class="container">
+            <div class="col-sm-4 form-group row">
+                <h3>Profile: </h3>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="first_name">First Name: </label>
+                <input id="first_name" type="text" name="first_name" maxlength="100" value="{{ details.first_name }}">
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="last_name">Last Name: </label>
+                <input id="last_name" type="text" name="last_name" maxlength="100" value="{{ details.last_name }}">
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="gender">Gender: </label>
+                <input id="gender" type="text" name="gender" maxlength="100" value="{{ details.gender }}">
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="email">Email: </label>
+                <input id="email" type="email" name="email" maxlength="100" value="{{ details.email }}">
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="phone">Phone: </label>
+                <input id="phone" type="number" name="phone" maxlength="10" value="{{ details.phone }}">
+            </div>
+
+            <div class="form-group row">
+                  <label class="col-sm-3 col-form-label" for="city">City:</label>
+                 <input id="city" type="text" name="city" maxlength="10" value="{{ details.city }}">
+            </div>
+            <div class="col-sm-4">
+                <a class="btn btn-primary" href="/home/{{ details.id }}"><span class="glyphicon glyphicon-pencil">Home</span></a>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

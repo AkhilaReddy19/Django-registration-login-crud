@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+</head>
+<body>
+
+    <form id="regform" method="POST" class="form-control" action="/registration/" >
+        {% csrf_token %}
+
+        <div class="container">
+            <div class="col-sm-4 form-group row">
+                <h3>Enter Details</h3>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="first_name">First Name: </label>
+{#                <input id="first_name" type="text" name="first_name" maxlength="100">#}
+                {{ form.first_name }}
+                {{ form.first_name.errors }}
+                <span class="error">This field is required</span>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="last_name">Last Name: </label>
+{#                <input id="last_name" class="form-control" type="text" name="last_name" maxlength="100">#}
+                {{ form.last_name }}
+                {{ form.last_name.errors }}
+                <span class="error">This field is required</span>
+            </div>
+
+            <div class="form-group row">
+                <label class="label_radio col-sm-3 col-form-label" type="radio" for="gender">Gender: </label>
+{#                <div class="valid" id="gender">#}
+{#                    <input type="radio" name="gender" value="male" checked>Male#}
+{#                </div>#}
+                {{ form.gender }}
+                <span class="error">This field is required</span>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="email">Email: </label>
+{#                <input id="email" type="email" name="email" maxlength="100">#}
+                {{ form.email }}
+                {{ form.email.errors }}
+                <span class="error">This field is required</span>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="phone">Phone: </label>
+{#                <input id="phone" type="number" name="phone" maxlength="10">#}
+                {{ form.phone }}
+                {{ form.phone.errors }}
+                <span class="error">This field is required</span>
+            </div>
+
+{#            <div class="form-group row">#}
+{#                <label class="col-sm-3 col-form-label" for="city">City:</label>#}
+{#                  <select id="city" name="city">#}
+{#                        <option value="" hidden>-Select an option-</option>#}
+{#                        {% for city in cities %}#}
+{#                            <option value="{{ city.city1 }}">{{ city.city1 }}</option>#}
+{#                        {% endfor %}#}
+{#                  </select>#}
+{#                {{ form.city.errors }}#}
+{#                <span class="error">This field is required</span>#}
+{#            </div>#}
+
+            <div class="form-group row">
+                {{ form.city.errors }}
+                <label class="col-sm-3 col-form-label" for="city">City:</label>
+                   {{ form.city}}
+                <span class="error">This field is required</span>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="pwd">Password:</label>
+{#                <input type="password" id="password" name="password">#}
+                {{ form.password }}
+                {{ form.password.errors }}
+                <span class="error">This field is required</span>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="pwd">Confirm Password:</label>
+{#                <input type="password" id="confirm_password" name="confirm_password">#}
+                {{ form.confirm_password }}
+                {{ form.confirm_password.errors }}
+                <span class="error">Enter the same password</span>
+            </div>
+
+             <div class="checkbox form-group row col-sm-5">
+                 <label class="col-sm-8 col-form-label" for="tandc">Accept terms and conditions</label>
+{#                <input id="tandc" type="checkbox" name="tandc">Accept terms and conditions#}
+                 {{ form.tandc }}
+                  {{ form.tandc.errors }}
+                <span class="error">This field is required</span>
+             </div>
+
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label"></label>
+                <div class="col-sm-4">
+                    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <style>
+        .error{
+            display: none;
+            margin-left: 10px;
+        }
+
+        .error_show{
+            color: red;
+            margin-left: 10px;
+        }
+        input.invalid, textarea.invalid{
+            border: 2px solid red;
+        }
+
+        input.valid, textarea.valid{
+            border: 2px solid green;
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+  <script>
+
+        $('#first_name').on('input', function() {
+            var input=$(this);
+            var is_name=input.val();
+            if(is_name){input.removeClass("invalid").addClass("valid");}
+            else{input.removeClass("valid").addClass("invalid");}
+        });
+
+        $('#last_name').on('input', function() {
+            var input=$(this);
+            var is_name=input.val();
+            if(is_name){input.removeClass("invalid").addClass("valid");}
+            else{input.removeClass("valid").addClass("invalid");}
+        });
+
+        {#$('#gender').on('input', function() {#}
+        {#    var input=$(this);#}
+        {#    var is_name=input.val();#}
+        {#    if(is_name){input.removeClass("invalid").addClass("valid");}#}
+        {#    else{input.removeClass("valid").addClass("invalid");}#}
+        {#});#}
+
+        $("input[type='radio']").click(function(){
+            var input=$(this);
+            var radioValue = $("input[name='muuttuminen']:checked").val();
+            if(radioValue){
+                input.removeClass("invalid").addClass("valid");
+            }
+            else{
+                input.removeClass("valid").addClass("invalid");
+            }
+        });
+
+        $('#email').on('input', function() {
+            var input=$(this);
+            var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            var is_email=re.test(input.val());
+            if(is_email){input.removeClass("invalid").addClass("valid");}
+            else{input.removeClass("valid").addClass("invalid");}
+        });
+
+        $('#phone').on('input', function() {
+            var input=$(this);
+            var re = /^[6-9][0-9]{9}$/;
+            var is_name=re.test(input.val());
+            if(is_name){input.removeClass("invalid").addClass("valid");}
+            else{input.removeClass("valid").addClass("invalid");}
+        });
+
+        $('#city').on('input', function() {
+            var input=$(this);
+            var is_name=input.val();
+            if(is_name){
+                input.removeClass("invalid").addClass("valid");
+            }
+            else{input.removeClass("valid").addClass("invalid");}
+        });
+
+        $('#password').on('input', function() {
+            var input=$(this);
+            var re = /^[a-zA-z0-9@_!#$&*-+]{8,16}$/;
+            var is_name=re.test(input.val());
+            if(is_name){input.removeClass("invalid").addClass("valid");}
+            else{input.removeClass("valid").addClass("invalid");}
+        });
+
+        $('#confirm_password').on('input', function() {
+            var input=$(this);
+            var input1=$('#password');
+            var is_name1=input1.val();
+            var is_name=input.val();
+            if(is_name && is_name === is_name1){input.removeClass("invalid").addClass("valid");}
+            else{input.removeClass("valid").addClass("invalid");}
+        });
+
+        {#$('#tandc').on('input', function() {#}
+        {#    var input = $(this);#}
+        {#    if ($("input[type=checkbox][name='muuttuminen']:checked").length === 0) {#}
+        {#        input.removeClass("invalid").addClass("valid");#}
+        {#    }#}
+        {#    else {#}
+        {#        input.removeClass("valid").addClass("invalid");#}
+        {#    }#}
+        {##}
+        {#});#}
+
+        $("input[type='checkbox']").click(function(){
+            var value = $("input.select:checked").length;
+            var input=$(this);
+            if(input.prop("checked") === true){
+                input.removeClass("invalid").addClass("valid");
+                $(this).val("yes");
+            }
+            else{
+                input.removeClass("valid").addClass("invalid");
+                $(this).val("no");
+            }
+        });
+
+        {#$('#tandc').on('input', function() {#}
+        {#    var input=$(this);#}
+        {#    var is_name=input.val();#}
+        {#    if(is_name){input.removeClass("invalid").addClass("valid");}#}
+        {#    else{input.removeClass("valid").addClass("invalid");}#}
+        {#});#}
+
+         $("#submit").on('click',function(event){
+            var form_data=$("#regform").serializeArray();
+            console.log(form_data)
+            var error_free=true;
+            for (var input in form_data){
+                if(input!=0) {
+                    var element = $("#" + form_data[input]['name']);
+                    var valid = element.hasClass("valid");
+                    var error_element = $("span", element.parent());
+                    if (!valid) {
+                        alert(input)
+                        $("#tandc").nextAll("span:first").removeClass("error").addClass("error_show");
+                        error_element.removeClass("error").addClass("error_show");
+                        error_free = false;
+                    }
+                    else {
+                        error_element.removeClass("error_show").addClass("error");
+                    }
+                }
+
+            }
+            if($("#tandc").prop('checked') === false){
+                $("#tandc").nextAll("span:first").removeClass("error").addClass("error_show");
+                return false
+            }
+            if (!error_free){
+                alert("error")
+
+                event.preventDefault();
+            }
+            else{
+                alert('No errors: Form will be submitted');
+            }
+        });
+
+
+{#    </script>#}
+{#    <script>#}
+{#        function validate_form()#}
+{#        {#}
+{#            var first_name = document.forms["regform"]["first_name"];#}
+{#            var last_name = document.forms["regform"]["last_name"];#}
+{#            var gender = document.forms["regform"]["gender"];#}
+{#            var email = document.forms["regform"]["email"];#}
+            {#var indexat = email.indexOf("@"); //Index of "@" in the email field#}
+            {#var indexdot = email.indexOf("."); //Index of "." in the email field#}
+{#            var phone =document.forms["regform"]["phone"];#}
+{#            var city = document.forms["regform"]["city"];#}
+{#            var password = document.forms["regform"]["password"];#}
+{#            var confirm_password = document.forms["regform"]["confirm_password"];#}
+{#            var tandc = document.forms["regform"]["Accept_terms_and_conditions"];#}
+{##}
+{#            if (first_name.value === '') {#}
+{#                window.alert('Please enter your First Name');#}
+{#                window.location.href = "registration.html";#}
+{#                first_name.focus();#}
+{#                return false;#}
+{#            }#}
+{#            else if (last_name.value === '') {#}
+{#                window.alert('Please enter your Last Name');#}
+{#                last_name.focus();#}
+{#                return false;#}
+{#            }#}
+{#            else if (gender.value === '') {#}
+{#                window.alert('Please enter your Gender');#}
+{#                gender.focus();#}
+{#                return false;#}
+{#            }#}
+{#            else if (email.value === "")#}
+{#            {#}
+{#                window.alert("Please enter a valid e-mail address.");#}
+{#                email.focus();#}
+{#                return false;#}
+{#            }#}
+{#            else if (email.value.indexOf("@", 0) < 0)#}
+{#            {#}
+{#                window.alert("Please enter a valid e-mail address.");#}
+{#                email.focus();#}
+{#                return false;#}
+{#            }#}
+{#            else if (email.value.indexOf(".", 0) < 0)#}
+{#            {#}
+{#                window.alert("Please enter a valid e-mail address.");#}
+{#                email.focus();#}
+{#                return false;#}
+{#            }#}
+{#            else if (phone.value === '') {#}
+{#                window.alert('Please enter your Phone Number');#}
+{#                phone.focus();#}
+{#                return false;#}
+{#            }#}
+{#            else if (password.value === '') {#}
+{#                window.alert('Please enter password');#}
+{#                password.focus();#}
+{#                return false;#}
+{#            }#}
+{#            else if (confirm_password.value === '') {#}
+{#                window.alert('Please confirm your password');#}
+{#                confirm_password.focus();#}
+{#                return false;#}
+{#            }#}
+{#            else if (city.selectedIndex < 1) {#}
+{#                window.alert('Please select city');#}
+{#                city.focus();#}
+{#                return false;#}
+{#            }#}
+{#            else if (password === '' && password !== confirm_password) {#}
+{#                window.alert('Password and confirm password do not match');#}
+{#                $('#confirm_password').focus();#}
+{#            }#}
+{#            else if (tandc === '') {#}
+{#                window.alert('Accept terms and conditions');#}
+{#                tandc.focus();#}
+{#                return false;#}
+{#            }#}
+{#            return true;#}
+{#        }#}
+{##}
+{#    </script>#}
+
+</body>
+</html>
